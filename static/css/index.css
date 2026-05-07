@@ -246,7 +246,6 @@ body {
 .metrics-table,
 .benchmark-table {
   font-size: 0.82rem;
-  table-layout: fixed;
   min-width: 980px;
 }
 .metrics-table th,
@@ -256,26 +255,23 @@ body {
   padding: 0.4em 0.5em;
   text-align: center !important;
 }
-/* Method column: sticky + fixed width */
-.metrics-table th:first-child,
-.metrics-table td:first-child,
-.benchmark-table th:first-child,
-.benchmark-table td:first-child {
-  width: 120px;
+/* Method column: sticky + wider */
+.metrics-table td:nth-child(1),
+.benchmark-table td:nth-child(1) {
   text-align: left !important;
   position: sticky;
   left: 0;
   background: inherit;
   z-index: 1;
+  min-width: 120px;
 }
-/* Every data column (PSNR/SSIM/CD/EMD) gets the same fixed width
-   so the colspan headers (Chick1, torus, …) sit exactly centred
-   over their two sub-columns. */
-.metrics-table th:not(:first-child),
-.metrics-table td:not(:first-child),
-.benchmark-table th:not(:first-child),
-.benchmark-table td:not(:first-child) {
-  width: 54px;
+/* All data columns share the same min-width so the colspan headers
+   (Chick1, torus, …) sit exactly centred over their two sub-columns. */
+.metrics-table td:nth-child(n+2),
+.metrics-table th:nth-child(n+2),
+.benchmark-table td:nth-child(n+2),
+.benchmark-table th:nth-child(n+2) {
+  min-width: 54px;
 }
 .metrics-table thead th[colspan],
 .benchmark-table thead th[colspan] {

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Open Graph card placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.7" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="rgba(167,139,250,0.10)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Decorative cube on the right -->
+  <g transform="translate(880, 200)" fill="none" stroke="url(#accent)" stroke-width="3" stroke-linejoin="round">
+    <path d="M120 0 L240 60 L120 120 L0 60 Z"/>
+    <path d="M0 60 L0 200 L120 260 L120 120 Z"/>
+    <path d="M240 60 L240 200 L120 260 L120 120 Z"/>
+  </g>
+  <!-- Gaussian splats overlay -->
+  <g opacity="0.85" transform="translate(880, 200)">
+    <circle cx="60" cy="80" r="8" fill="#06b6d4"/>
+    <circle cx="180" cy="60" r="6" fill="#22d3ee"/>
+    <circle cx="120" cy="180" r="9" fill="#a78bfa"/>
+    <circle cx="200" cy="160" r="5" fill="#67e8f9"/>
+    <circle cx="40" cy="160" r="6" fill="#a5f3fc"/>
+  </g>
+
+  <!-- Venue badge -->
+  <g transform="translate(80, 90)">
+    <rect width="240" height="44" rx="22" fill="rgba(167,139,250,0.18)" stroke="rgba(167,139,250,0.45)" stroke-width="1"/>
+    <text x="120" y="28" fill="#c4b5fd" font-family="Google Sans, sans-serif" font-size="16" font-weight="600" text-anchor="middle" letter-spacing="2">ICML 2026</text>
+  </g>
+
+  <!-- Title -->
+  <text x="80" y="240" fill="#f8fafc" font-family="Google Sans, sans-serif" font-size="76" font-weight="700">MoSA</text>
+  <text x="80" y="296" fill="url(#accent)" font-family="Google Sans, sans-serif" font-size="28" font-weight="600">Motion-constrained Stress Adaptation</text>
+
+  <!-- One-line pitch -->
+  <text x="80" y="360" fill="#cbd5e1" font-family="Google Sans, sans-serif" font-size="22">Mitigating the real-to-sim gap in continuum dynamics</text>
+  <text x="80" y="392" fill="#cbd5e1" font-family="Google Sans, sans-serif" font-size="22">by learning residual anisotropy from multi-view video.</text>
+
+  <!-- Authors -->
+  <text x="80" y="500" fill="#94a3b8" font-family="Google Sans, sans-serif" font-size="20">Junhao He · Coauthors · Advisor</text>
+  <text x="80" y="528" fill="#64748b" font-family="Google Sans, sans-serif" font-size="16">The Hong Kong University of Science and Technology (Guangzhou)</text>
+
+  <!-- URL footer -->
+  <line x1="80" y1="568" x2="1120" y2="568" stroke="rgba(167,139,250,0.25)" stroke-width="1"/>
+  <text x="80" y="600" fill="#a78bfa" font-family="JetBrains Mono, monospace" font-size="16" letter-spacing="2">your-username.github.io/mosa</text>
+  <text x="1120" y="600" fill="#475569" font-family="JetBrains Mono, monospace" font-size="14" text-anchor="end" letter-spacing="2">OG · 1200×630 · REPLACE WITH og.jpg</text>
+</svg>

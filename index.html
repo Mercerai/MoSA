@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description"
+        content="MoSA: Motion-constrained Stress Adaptation for mitigating real-to-sim gap in continuum dynamics via learning residual anisotropy.">
+  <meta name="keywords" content="Real-to-Sim, Continuum Dynamics, Residual Anisotropy, Differentiable Simulation, Material Point Method, Gaussian Splatting, Robot Manipulation, ICML 2026">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===================== EDIT: page title ===================== -->
+  <title>MoSA · Motion-constrained Stress Adaptation · ICML 2026</title>
+
+  <!-- ===================== EDIT: social cards ===================== -->
+  <meta property="og:title" content="MoSA: Motion-constrained Stress Adaptation">
+  <meta property="og:description" content="Learning residual anisotropy to close the real-to-sim gap in continuum dynamics.">
+  <meta property="og:image" content="static/images/og.svg">
+  <meta property="og:url" content="https://your-username.github.io/mosa/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MoSA: Motion-constrained Stress Adaptation">
+  <meta name="twitter:description" content="Learning residual anisotropy to close the real-to-sim gap in continuum dynamics.">
+  <meta name="twitter:image" content="static/images/og.svg">
+
+  <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans:wght@400;500;700&family=Castoro&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+  <!-- Bulma + FontAwesome + Carousel -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.24/dist/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-slider@2.0.5/dist/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/index.css?v=20260507k">
+
+  <!-- KaTeX (optional, for inline equations) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+</head>
+
+<body>
+
+<!-- =========================================================
+     Top navigation (sticky, anchor-linked)
+========================================================== -->
+<nav class="navbar is-fixed-top is-light has-shadow" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item has-text-weight-semibold" href="#">
+      <span class="icon"><i class="fas fa-cube"></i></span>
+      &nbsp;MoSA
+    </a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <a class="navbar-item" href="#abstract">Abstract</a>
+      <a class="navbar-item" href="#video">Video</a>
+      <a class="navbar-item" href="#learn">Learn</a>
+      <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#robot">Robot</a>
+      <a class="navbar-item" href="#bibtex">BibTeX</a>
+      <span class="navbar-item navbar-icml-badge" aria-label="ICML 2026">
+        <img src="static/images/icml-navbar-logo.svg" alt="ICML 2026">
+        <span>ICML&nbsp;2026</span>
+      </span>
+    </div>
+  </div>
+</nav>
+
+<!-- =========================================================
+     Hero section: title, authors, affiliations, links
+========================================================== -->
+<section class="hero is-medium hero-banner">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <!-- ===================== EDIT: venue badge ===================== -->
+      <p class="venue-badge venue-badge-icml">
+        <img class="venue-badge-logo" src="static/images/icml-navbar-logo.svg" alt="ICML">
+        <span>To appear at <strong>ICML 2026</strong></span>
+      </p>
+
+      <!-- ===================== EDIT: paper title ===================== -->
+      <h1 class="title publication-title">
+        MoSA: Motion-constrained Stress Adaptation<br>
+        <span class="title-accent">Mitigating the Real-to-Sim Gap via Learning Residual Anisotropy</span>
+      </h1>
+
+      <!-- ===================== EDIT: authors ===================== -->
+      <div class="is-size-5 publication-authors">
+        <span class="author-block">
+          <a href="#" target="_blank">Jiaxu Wang</a><sup>1</sup>,
+        </span>
+        <span class="author-block">
+          <a href="https://your-personal-page.com" target="_blank">Junhao He</a><sup>2</sup>,
+        </span>
+        <span class="author-block">
+          <a href="#" target="_blank">Co-author Three</a><sup>2</sup>,
+        </span>
+        <span class="author-block">
+          <a href="#" target="_blank">Advisor Name</a><sup>2*</sup>
+        </span>
+      </div>
+
+      <div class="is-size-6 publication-authors" style="margin-top:0.5rem;">
+        <span class="author-block"><sup>1</sup>The Chinese University of Hong Kong</span>&nbsp;&nbsp;
+        <span class="author-block"><sup>2</sup>The Hong Kong University of Science and Technology (Guangzhou)</span><br>
+        <span class="author-block has-text-grey is-size-7"><sup>*</sup>Corresponding author</span>
+      </div>
+
+      <!-- ===================== EDIT: link buttons ===================== -->
+      <div class="publication-links">
+        <span class="link-block">
+          <a href="static/pdfs/paper.pdf" target="_blank" class="external-link button is-rounded is-dark">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" class="external-link button is-rounded is-dark">
+            <span class="icon"><i class="ai ai-arxiv"></i><i class="fas fa-archive"></i></span><span>arXiv</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="https://github.com/your-username/mosa" target="_blank" class="external-link button is-rounded is-dark">
+            <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="https://www.youtube.com/watch?v=XXXXXXXXXXX" target="_blank" class="external-link button is-rounded is-dark">
+            <span class="icon"><i class="fab fa-youtube"></i></span><span>Video</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="#" target="_blank" class="external-link button is-rounded is-dark">
+            <span class="icon"><i class="fas fa-database"></i></span><span>Dataset</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="#bibtex" class="external-link button is-rounded is-dark">
+            <span class="icon"><i class="fas fa-quote-right"></i></span><span>BibTeX</span>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Teaser figure / video
+========================================================== -->
+<section class="section teaser-section">
+  <div class="container is-max-desktop">
+    <figure class="teaser-figure">
+      <img src="static/images/mainpipeline.png" alt="MoSA — main pipeline overview">
+      <figcaption class="has-text-centered has-text-grey is-size-6">
+        <strong>Figure 1.</strong> From multi-view videos of a deforming object, MoSA recovers
+        a physics-consistent 3D simulator: a near-isotropic backbone explains the dominant
+        dynamics, and a learned residual stress operator captures the mild anisotropy and
+        heterogeneity that close the remaining real-to-sim gap.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- =========================================================
+     Abstract
+========================================================== -->
+<section id="abstract" class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">Abstract</h2>
+    <div class="content has-text-justified abstract-text">
+      <!-- ===================== EDIT: abstract ===================== -->
+      <p>
+        Learning real-world dynamics from visual observations is crucial across graphics,
+        robotics, and embodied AI. A common strategy is to calibrate simulators by estimating
+        physical parameters, yet accuracy is ultimately bounded by the underlying physical
+        models, which usually assume materials are <em>homogeneous and isotropic</em>. Even when
+        this is reasonable, real-world objects typically exhibit mild anisotropy and
+        heterogeneity. Once the near-isotropic backbone is calibrated, these <em>residual
+        effects</em> become the key bottleneck for further closing the real-to-sim gap.
+        Black-box neural dynamics, on the other hand, discard strong physical priors and
+        suffer from poor data efficiency and overfitting.
+      </p>
+      <p>
+        We propose <strong>MoSA</strong>, a motion-constrained stress adaptation framework
+        that targets these residual effects directly. MoSA keeps an isotropic constitutive
+        law as a physics prior and learns a structured residual stress operator that
+        progressively adapts stresses via <strong>microplane-constrained redistribution</strong>
+        in a physics-informed cascaded network. We further impose <strong>motion constraints</strong>
+        by supervising temporal and spatial derivatives of the deformation field with cues
+        from dynamic 3D Gaussian Splatting reconstruction. On synthetic and real-world
+        multi-view captures, MoSA achieves superior accuracy, generalization, and
+        robustness, while learning <em>physically meaningful</em> residual anisotropy. Deployed
+        in a sim-to-real robot manipulation setting, the better dynamics directly translate
+        into a <strong>+26%</strong> success rate over an isotropic-prior baseline.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Highlight video (e.g. 1-2 minute overview)
+========================================================== -->
+<section id="video" class="section section-alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title has-text-centered">Video</h2>
+    <div class="publication-video">
+      <video controls preload="metadata" playsinline data-noautoplay>
+        <source src="static/videos/MOSA.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     What does MoSA learn?
+========================================================== -->
+<section id="learn" class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">What does MoSA learn?</h2>
+    <div class="content has-text-justified">
+      <p>
+        Beyond benchmark numbers, we probe the residual stress operator with a directional
+        Jacobian response $w(\theta) = \lVert \tfrac{\partial \hat{\sigma}}{\partial \sigma_{\text{iso}}}\!\cdot\! \text{vec}(n\!\otimes\! n) \rVert_{2}$.
+        On the synthetic <strong>PAC-NeRF</strong> benchmark — generated by an isotropic simulator —
+        $w(\theta)$ stays near zero with <em>no directional pattern</em>, so MoSA does not introduce
+        spurious anisotropy. On the real-world <em>Mandarin</em> sequence, $w(\theta)$ shows
+        pronounced directionality aligned with the object's principal axis, indicating that the
+        operator <em>adaptively recovers physically meaningful anisotropy</em> only when the data
+        truly contains it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Results: carousel of qualitative results
+========================================================== -->
+<section id="results" class="section section-alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title has-text-centered">Qualitative Results</h2>
+    <p class="has-text-centered has-text-grey">
+      Real-to-sim rollouts on our 12-camera real-world dataset. Click the arrows to switch scenes; drag the slider below to scrub the current clip.
+    </p>
+
+    <div id="resultsCarousel" class="carousel results-carousel">
+      <div class="item">
+        <video data-noautoplay preload="auto" muted playsinline>
+          <source src="static/videos/chick1.mp4" type="video/mp4">
+        </video>
+        <p class="caption">Chick1 — elastoplastic squash, residual scaling along the head-to-tail axis.</p>
+      </div>
+      <div class="item">
+        <video data-noautoplay preload="auto" muted playsinline>
+          <source src="static/videos/chick2.mp4" type="video/mp4">
+        </video>
+        <p class="caption">Chick2 — held-out initial pose; physics-consistent rollout.</p>
+      </div>
+      <div class="item">
+        <video data-noautoplay preload="auto" muted playsinline>
+          <source src="static/videos/gorilla.mp4" type="video/mp4">
+        </video>
+        <p class="caption">Gorilla — plastic squash with residual stress redistribution.</p>
+      </div>
+      <div class="item">
+        <video data-noautoplay preload="auto" muted playsinline>
+          <source src="static/videos/mandarin.mp4" type="video/mp4">
+        </video>
+        <p class="caption">Mandarin — elastic anisotropy along the equatorial direction.</p>
+      </div>
+      <div class="item">
+        <video data-noautoplay preload="auto" muted playsinline>
+          <source src="static/videos/peanut.mp4" type="video/mp4">
+        </video>
+        <p class="caption">Peanut — elongated body with stiffness gradient between the lobes.</p>
+      </div>
+      <div class="item">
+        <video data-noautoplay preload="auto" muted playsinline>
+          <source src="static/videos/rabbit.mp4" type="video/mp4">
+        </video>
+        <p class="caption">Rabbit — elastoplastic deformation under free-fall impact.</p>
+      </div>
+      <div class="item">
+        <video data-noautoplay preload="auto" muted playsinline>
+          <source src="static/videos/rainbowball.mp4" type="video/mp4">
+        </video>
+        <p class="caption">Rainbowball — heterogeneous stiffness across colored sectors.</p>
+      </div>
+    </div>
+
+    <div class="qual-shared-slider-wrap">
+      <input type="range" class="qual-slider" id="qualSharedSlider" min="0" max="5" step="0.01" value="0" aria-label="Scrub current qualitative video">
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Comparisons: before/after slider
+========================================================== -->
+<section id="comparisons" class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">Comparisons</h2>
+
+    <h3 class="title is-5">Quantitative results — real-world multi-view dataset</h3>
+    <p class="has-text-grey is-size-6" style="margin-bottom:1rem;">
+      Per-scene and mean PSNR / SSIM on our real-world multi-view dataset (7 objects). SSIM is scaled by 100.
+    </p>
+    <div class="table-container">
+      <table class="table is-fullwidth is-striped is-narrow result-table metrics-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Method</th>
+            <th colspan="2">Chick1</th>
+            <th colspan="2">Gorilla</th>
+            <th colspan="2">Mandarin</th>
+            <th colspan="2">Chick2</th>
+            <th colspan="2">Peanut</th>
+            <th colspan="2">Rabbit</th>
+            <th colspan="2">RBball</th>
+            <th colspan="2">Mean</th>
+          </tr>
+          <tr>
+            <th>PSNR↑</th><th>SSIM↑</th>
+            <th>PSNR↑</th><th>SSIM↑</th>
+            <th>PSNR↑</th><th>SSIM↑</th>
+            <th>PSNR↑</th><th>SSIM↑</th>
+            <th>PSNR↑</th><th>SSIM↑</th>
+            <th>PSNR↑</th><th>SSIM↑</th>
+            <th>PSNR↑</th><th>SSIM↑</th>
+            <th>PSNR↑</th><th>SSIM↑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DEL</td>
+            <td>28.32</td><td>91.6</td>
+            <td>29.11</td><td>90.4</td>
+            <td>31.92</td><td>92.4</td>
+            <td>28.59</td><td>90.9</td>
+            <td>28.38</td><td>91.3</td>
+            <td>28.57</td><td>91.4</td>
+            <td>30.95</td><td>91.7</td>
+            <td>29.41</td><td>91.4</td>
+          </tr>
+          <tr>
+            <td>Vid2Sim</td>
+            <td>26.71</td><td>90.9</td>
+            <td>29.02</td><td>90.0</td>
+            <td>25.85</td><td>89.8</td>
+            <td>25.70</td><td>89.5</td>
+            <td>30.69</td><td>94.6</td>
+            <td>26.85</td><td>90.3</td>
+            <td>31.71</td><td>91.7</td>
+            <td>28.08</td><td>91.0</td>
+          </tr>
+          <tr>
+            <td>NeuMA</td>
+            <td>30.73</td><td>92.4</td>
+            <td>29.78</td><td>91.1</td>
+            <td>31.85</td><td>92.4</td>
+            <td>28.92</td><td>91.0</td>
+            <td>30.70</td><td>91.8</td>
+            <td>28.30</td><td>92.3</td>
+            <td>30.74</td><td>91.1</td>
+            <td>30.00</td><td>91.7</td>
+          </tr>
+          <tr>
+            <td>GIC</td>
+            <td>30.93</td><td>92.5</td>
+            <td>29.75</td><td>91.0</td>
+            <td>29.54</td><td>91.6</td>
+            <td>28.17</td><td>90.9</td>
+            <td>32.88</td><td>91.3</td>
+            <td>28.08</td><td>91.3</td>
+            <td>30.78</td><td>91.7</td>
+            <td>30.02</td><td>91.5</td>
+          </tr>
+          <tr class="is-selected">
+            <td><strong>MoSA (Ours)</strong></td>
+            <td><strong>32.05</strong></td><td><strong>92.7</strong></td>
+            <td><strong>30.19</strong></td><td><strong>91.9</strong></td>
+            <td><strong>32.83</strong></td><td><strong>92.7</strong></td>
+            <td><strong>30.17</strong></td><td><strong>91.6</strong></td>
+            <td><strong>33.01</strong></td><td><strong>92.0</strong></td>
+            <td><strong>30.35</strong></td><td><strong>92.1</strong></td>
+            <td><strong>32.06</strong></td><td><strong>92.7</strong></td>
+            <td><strong>31.35</strong></td><td><strong>92.3</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="title is-5" style="margin-top:2rem;">Synthetic dynamic grounding — PAC-NeRF benchmark</h3>
+    <p class="has-text-grey is-size-6" style="margin-bottom:1rem;">
+      Per-scene and mean CD / EMD on the PAC-NeRF dataset (7 scenes). Both metrics scaled by 100.
+    </p>
+    <div class="table-container">
+      <table class="table is-fullwidth is-striped is-narrow result-table benchmark-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Method</th>
+            <th colspan="2">torus</th>
+            <th colspan="2">cat</th>
+            <th colspan="2">playdoh</th>
+            <th colspan="2">droplet</th>
+            <th colspan="2">Cream</th>
+            <th colspan="2">Bird</th>
+            <th colspan="2">Letter</th>
+            <th colspan="2">Mean</th>
+          </tr>
+          <tr>
+            <th>CD↓</th><th>EMD↓</th>
+            <th>CD↓</th><th>EMD↓</th>
+            <th>CD↓</th><th>EMD↓</th>
+            <th>CD↓</th><th>EMD↓</th>
+            <th>CD↓</th><th>EMD↓</th>
+            <th>CD↓</th><th>EMD↓</th>
+            <th>CD↓</th><th>EMD↓</th>
+            <th>CD↓</th><th>EMD↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PAC-NeRF</td>
+            <td>21.8</td><td>11.6</td>
+            <td>9.8</td><td>14.4</td>
+            <td>18.6</td><td>5.6</td>
+            <td>10.4</td><td>3.2</td>
+            <td>20.5</td><td>12.7</td>
+            <td>19.3</td><td>21.1</td>
+            <td>12.8</td><td>8.5</td>
+            <td>16.2</td><td>11.0</td>
+          </tr>
+          <tr>
+            <td>DEL</td>
+            <td>21.7</td><td>10.7</td>
+            <td>7.9</td><td>12.8</td>
+            <td>12.2</td><td>2.5</td>
+            <td>9.8</td><td>1.7</td>
+            <td>19.8</td><td>9.8</td>
+            <td>17.8</td><td>20.2</td>
+            <td>12.6</td><td>7.2</td>
+            <td>14.5</td><td>9.3</td>
+          </tr>
+          <tr>
+            <td>GIC</td>
+            <td>20.2</td><td>9.9</td>
+            <td>7.6</td><td>12.6</td>
+            <td>12.3</td><td>2.5</td>
+            <td>10.2</td><td>1.9</td>
+            <td>19.5</td><td>10.1</td>
+            <td>16.5</td><td>19.5</td>
+            <td>10.3</td><td>7.5</td>
+            <td>13.8</td><td>9.1</td>
+          </tr>
+          <tr class="is-selected">
+            <td><strong>MoSA (Ours)</strong></td>
+            <td><strong>20.1</strong></td><td><strong>9.8</strong></td>
+            <td><strong>7.3</strong></td><td><strong>12.4</strong></td>
+            <td><strong>11.4</strong></td><td><strong>2.3</strong></td>
+            <td><strong>9.6</strong></td><td><strong>1.5</strong></td>
+            <td><strong>19.4</strong></td><td><strong>9.5</strong></td>
+            <td><strong>16.3</strong></td><td><strong>19.2</strong></td>
+            <td><strong>10.1</strong></td><td><strong>6.6</strong></td>
+            <td><strong>13.5</strong></td><td><strong>8.8</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Sim-to-Real Robot Manipulation: downstream impact
+========================================================== -->
+<section id="robot" class="section section-alt">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title has-text-centered">Sim-to-Real Robot Manipulation</h2>
+    <p class="has-text-centered has-text-grey" style="margin-bottom:2rem;">
+      We learn object dynamics from video, train a manipulation policy in the learned simulator,
+      and zero-shot transfer to a real robot. Better real-to-sim dynamics translates directly
+      into more reliable sim-to-real policy execution.
+    </p>
+
+    <h3 class="title is-5 has-text-centered">LLM baseline vs. MoSA — three deformable scenes</h3>
+    <p class="has-text-centered has-text-grey is-size-7" style="margin-bottom:1rem;">
+      Each pair plays in sync. Use the arrows to switch between Cup, Rabbit and Towel.
+    </p>
+
+    <div id="robotCarousel" class="carousel robot-carousel">
+      <div class="item is-current">
+        <div class="columns is-mobile is-vcentered robot-pair">
+          <div class="column is-half has-text-centered">
+            <p class="caption-strong">LLM baseline</p>
+            <video data-pairgroup="cup" data-pairrole="llm" data-noautoplay preload="metadata" muted loop playsinline class="comparison-video">
+              <source src="static/videos/cup_llm.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="column is-half has-text-centered">
+            <p class="caption-strong">MoSA (Ours)</p>
+            <video data-pairgroup="cup" data-pairrole="ours" data-noautoplay preload="metadata" muted loop playsinline class="comparison-video">
+              <source src="static/videos/cup_ours.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <p class="caption">Cup — grasp and lift a deformable cup.</p>
+      </div>
+      <div class="item">
+        <div class="columns is-mobile is-vcentered robot-pair">
+          <div class="column is-half has-text-centered">
+            <p class="caption-strong">LLM baseline</p>
+            <video data-pairgroup="rabbit" data-pairrole="llm" data-noautoplay preload="metadata" muted loop playsinline class="comparison-video">
+              <source src="static/videos/rabbit_llm.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="column is-half has-text-centered">
+            <p class="caption-strong">MoSA (Ours)</p>
+            <video data-pairgroup="rabbit" data-pairrole="ours" data-noautoplay preload="metadata" muted loop playsinline class="comparison-video">
+              <source src="static/videos/rabbit_ours.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <p class="caption">Rabbit — place an elastic rabbit onto a target box.</p>
+      </div>
+      <div class="item">
+        <div class="columns is-mobile is-vcentered robot-pair">
+          <div class="column is-half has-text-centered">
+            <p class="caption-strong">LLM baseline</p>
+            <video data-pairgroup="towel" data-pairrole="llm" data-noautoplay preload="metadata" muted loop playsinline class="comparison-video">
+              <source src="static/videos/towel_llm.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="column is-half has-text-centered">
+            <p class="caption-strong">MoSA (Ours)</p>
+            <video data-pairgroup="towel" data-pairrole="ours" data-noautoplay preload="metadata" muted loop playsinline class="comparison-video">
+              <source src="static/videos/towel_ours.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <p class="caption">Towel — fold and hang a flexible towel.</p>
+      </div>
+    </div>
+
+    <div class="columns is-multiline" style="margin-top:2.5rem;">
+      <div class="column is-half">
+        <div class="application-card">
+          <span class="icon is-large"><i class="fas fa-robot fa-2x"></i></span>
+          <h4 class="title is-5">Elastic-rabbit placement</h4>
+          <p class="has-text-grey is-size-7" style="margin-bottom:0.75rem;">Place a deformable rabbit onto a white box.</p>
+          <p>
+            <strong style="color: var(--color-accent-strong); font-size:1.4rem;">68 / 100</strong>
+            <span class="has-text-grey">vs. 42 / 100 with isotropic prior</span><br>
+            <span class="tag is-light is-medium" style="margin-top:0.5rem;">+26% success</span>
+          </p>
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="application-card">
+          <span class="icon is-large"><i class="fas fa-link fa-2x"></i></span>
+          <h4 class="title is-5">Tower hanging</h4>
+          <p class="has-text-grey is-size-7" style="margin-bottom:0.75rem;">Hang a deformable object on a peg tower.</p>
+          <p>
+            <strong style="color: var(--color-accent-strong); font-size:1.4rem;">82 / 100</strong>
+            <span class="has-text-grey">vs. 55 / 100 with isotropic prior</span><br>
+            <span class="tag is-light is-medium" style="margin-top:0.5rem;">+27% success</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     BibTeX
+========================================================== -->
+<section id="bibtex" class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title">BibTeX</h2>
+    <pre class="bibtex"><code>@inproceedings{wang2026mosa,
+  title     = {{MoSA}: Motion-constrained Stress Adaptation for Mitigating Real-to-Sim Gap
+               in Continuum Dynamics via Learning Residual Anisotropy},
+  author    = {Wang, Jiaxu and He, Junhao and Coauthors and Advisor},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML)},
+  year      = {2026}
+}</code></pre>
+    <p class="has-text-right">
+      <button id="copyBibBtn" class="button is-small is-light">
+        <span class="icon"><i class="fas fa-copy"></i></span><span>Copy</span>
+      </button>
+    </p>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     Footer
+========================================================== -->
+<footer class="footer site-footer">
+  <div class="container has-text-centered is-size-7 has-text-grey">
+    <p>
+      © 2026 The Authors · This page uses
+      <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a> /
+      <a href="https://bulma.io/" target="_blank">Bulma</a>. Released under
+      <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
+    </p>
+  </div>
+</footer>
+
+<!-- ============ Scripts ============ -->
+<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.24/dist/js/bulma-carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bulma-slider@2.0.5/dist/js/bulma-slider.min.js"></script>
+<script src="static/js/index.js?v=20260507k"></script>
+</body>
+</html>

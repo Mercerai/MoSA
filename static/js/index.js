@@ -51,29 +51,54 @@ document.addEventListener('DOMContentLoaded', () => {
     robotInstance = rob && rob[0];
   }
 
-  /* ---------- Robot pair carousel: gate playback to active slide ---------- */
+  /* ---------- Robot pair carousel: frame-strip with shared slider ---------- */
 
-  const stopRobotVideo = (v) => {
-    try { v.pause(); } catch (_) {}
-    try { v.currentTime = 0; } catch (_) {}
+  const ROBOT_FRAME_COUNT = 10;
+  const robotSlider = document.getElementById('robotSharedSlider');
+  const pad2 = (n) => (n < 10 ? '0' + n : '' + n);
+
+  const setRobotFrame = (item, frameIdx) => {
+    const imgs = item.querySelectorAll('img.comparison-frame');
+    imgs.forEach(img => {
+      const base = img.getAttribute('data-frame-base');
+      if (!base) return;
+      img.src = base + '_' + pad2(frameIdx) + '.jpg';
+    });
+  };
+
+  const updateRobotSliderFill = () => {
+    if (!robotSlider) return;
+    const min = parseFloat(robotSlider.min) || 0;
+    const max = parseFloat(robotSlider.max) || 1;
+    const val = parseFloat(robotSlider.value) || 0;
+    const pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
+    robotSlider.style.setProperty('--qual-progress', pct + '%');
   };
 
   const playRobotSlide = (idx) => {
     robotItems.forEach((item, i) => {
       const isActive = i === idx;
       item.classList.toggle('is-current', isActive);
-      const videos = item.querySelectorAll('video');
-      videos.forEach(v => {
-        if (isActive) {
-          try { v.currentTime = 0; } catch (_) {}
-          const p = v.play();
-          if (p && typeof p.catch === 'function') p.catch(() => {});
-        } else {
-          stopRobotVideo(v);
-        }
-      });
     });
+    if (robotSlider) {
+      robotSlider.value = 0;
+      updateRobotSliderFill();
+    }
+    const active = robotItems[idx];
+    if (active) setRobotFrame(active, 0);
   };
+
+  // Preload all frames so scrubbing is instant.
+  robotItems.forEach(item => {
+    item.querySelectorAll('img.comparison-frame').forEach(img => {
+      const base = img.getAttribute('data-frame-base');
+      if (!base) return;
+      for (let i = 0; i < ROBOT_FRAME_COUNT; i++) {
+        const pre = new Image();
+        pre.src = base + '_' + pad2(i) + '.jpg';
+      }
+    });
+  });
 
   const currentRobotIndex = () => {
     // bulma-carousel only updates state.index after the transition ends, so during
@@ -95,8 +120,20 @@ document.addEventListener('DOMContentLoaded', () => {
     robotInstance.on('after:show', () => playRobotSlide(currentRobotIndex()));
   }
 
-  // Initial: play slide 0, pause/reset everything else
+  // Initial: show slide 0 frame 0
   playRobotSlide(0);
+
+  if (robotSlider) {
+    const onRobotSliderChange = () => {
+      const idx = currentRobotIndex();
+      const active = robotItems[idx];
+      if (active) setRobotFrame(active, parseInt(robotSlider.value, 10) || 0);
+      updateRobotSliderFill();
+    };
+    robotSlider.addEventListener('input', onRobotSliderChange);
+    robotSlider.addEventListener('change', onRobotSliderChange);
+    updateRobotSliderFill();
+  }
 
   /* ---------- Qualitative shared-slider scrubbing ---------- */
   const sharedSlider = document.getElementById('qualSharedSlider');
@@ -260,20 +297,4 @@ document.addEventListener('DOMContentLoaded', () => {
     autoVideos.forEach(v => io.observe(v));
   }
 
-  /* ---------- Pause robot videos when the section leaves the viewport ---------- */
-  if ('IntersectionObserver' in window && robotEl) {
-    const robotIo = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Resume the active slide only.
-          playRobotSlide(currentRobotIndex());
-        } else {
-          robotItems.forEach(item => {
-            item.querySelectorAll('video').forEach(stopRobotVideo);
-          });
-        }
-      });
-    }, { threshold: 0.1 });
-    robotIo.observe(robotEl);
-  }
 });

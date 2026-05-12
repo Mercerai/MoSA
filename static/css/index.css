@@ -203,9 +203,12 @@ body {
 /* ===== Carousel ===== */
 .results-carousel .item {
   padding: 0 0.5rem;
+  text-align: center;
 }
 .results-carousel video {
-  width: 100%;
+  width: 65%;
+  max-width: 100%;
+  display: inline-block;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   background: #0b0d12;
@@ -218,8 +221,10 @@ body {
 }
 
 /* ===== Comparison ===== */
-.comparison-video {
+.comparison-video,
+.comparison-frame {
   width: 100%;
+  display: block;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   background: #0b0d12;
@@ -419,10 +424,15 @@ pre.bibtex code { background: transparent; color: inherit; padding: 0; }
 /* ===== Robot pair carousel ===== */
 .robot-carousel { margin-top: 1rem; }
 .robot-carousel .item { padding: 0 0.5rem; }
-.robot-carousel .robot-pair { margin: 0; }
+.robot-carousel .robot-pair {
+  margin: 0 auto;
+  max-width: 65%;
+}
 .robot-carousel .robot-pair .column { padding: 0.4rem 0.6rem; }
-.robot-carousel .comparison-video {
+.robot-carousel .comparison-video,
+.robot-carousel .comparison-frame {
   width: 100%;
+  display: block;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   background: #0b0d12;

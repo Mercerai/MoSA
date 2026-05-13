@@ -132,11 +132,6 @@
           </a>
         </span>
         <span class="link-block">
-          <a href="https://github.com/your-username/mosa" target="_blank" class="external-link button is-rounded is-dark">
-            <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
-          </a>
-        </span>
-        <span class="link-block">
           <a href="#" target="_blank" class="external-link button is-rounded is-dark">
             <span class="icon"><i class="fas fa-database"></i></span><span>Dataset</span>
           </a>
@@ -230,35 +225,35 @@
       </p>
 
       <div style="display:flex; justify-content:center; align-items:flex-start; gap:1rem; flex-wrap:nowrap; margin:1.5rem 0;">
-        <figure class="image" style="text-align:center; margin:0; flex:0 0 22%;">
+        <figure class="image" style="text-align:center; margin:0; flex:0 0 auto; max-width:230px;">
           <img src="static/images/learned_redistribution_trend.png"
                alt="Learned redistribution trend: normalized Young's modulus and Jacobian response share the same directional pattern"
-               style="width:100%; height:auto;">
+               style="height:180px; width:auto;">
           <figcaption class="has-text-grey is-size-7" style="margin-top:0.4rem;">
             Learned redistribution trend — $E_{\text{norm}}(\theta)$ and $\lVert J\rVert_{\text{norm}}(\theta)$ trace the same directional pattern, so the operator's mechanism agrees with its physical outcome.
           </figcaption>
         </figure>
-        <figure class="image" style="text-align:center; margin:0; flex:0 0 22%;">
+        <figure class="image" style="text-align:center; margin:0; flex:0 0 auto; max-width:230px;">
           <img src="static/images/directional_youngs_modulus.png"
                alt="Directional Young's modulus: GT vs. Neural Fit vs. Ours vs. Isotropic"
-               style="width:100%; height:auto;">
+               style="height:180px; width:auto;">
           <figcaption class="has-text-grey is-size-7" style="margin-top:0.4rem;">
             Directional Young's modulus $E(\theta)$ — MoSA recovers the anisotropic ground truth,
             while the isotropic prior misses it and a black-box neural fit overshoots.
           </figcaption>
         </figure>
-        <figure class="image" style="text-align:center; margin:0; flex:0 0 19%;">
+        <figure class="image" style="text-align:center; margin:0; flex:0 0 auto; max-width:230px;">
           <img src="static/images/eta_visualization.jpeg"
                alt="Spatial visualization of the learned heterogeneity field on Mandarin"
-               style="width:100%; height:auto;">
+               style="height:180px; width:auto;">
           <figcaption class="has-text-grey is-size-7" style="margin-top:0.4rem;">
             $\eta(\mathbf{x})$ on Mandarin — redder = stiffer, bluer = softer.
           </figcaption>
         </figure>
-        <figure class="image" style="text-align:center; margin:0; flex:0 0 19%;">
+        <figure class="image" style="text-align:center; margin:0; flex:0 0 auto; max-width:230px;">
           <img src="static/images/eta2.jpeg"
                alt="Spatial visualization of the learned heterogeneity field on Rabbit"
-               style="width:100%; height:auto;">
+               style="height:180px; width:auto;">
           <figcaption class="has-text-grey is-size-7" style="margin-top:0.4rem;">
             $\eta(\mathbf{x})$ on Rabbit — same color code.
           </figcaption>

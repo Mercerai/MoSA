@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Robot pair carousel: frame-strip with shared slider ---------- */
 
-  const ROBOT_FRAME_COUNT = 10;
+  const ROBOT_FRAME_COUNT = 20;
   const robotSlider = document.getElementById('robotSharedSlider');
   const pad2 = (n) => (n < 10 ? '0' + n : '' + n);
 

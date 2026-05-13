@@ -59,7 +59,6 @@
   <div id="navMenu" class="navbar-menu">
     <div class="navbar-end">
       <a class="navbar-item" href="#abstract">Abstract</a>
-      <a class="navbar-item" href="#video">Video</a>
       <a class="navbar-item" href="#learn">Learn</a>
       <a class="navbar-item" href="#results">Results</a>
       <a class="navbar-item" href="#robot">Robot</a>
@@ -119,7 +118,7 @@
       </div>
 
       <div class="is-size-6 publication-authors" style="margin-top:0.5rem;">
-        <span class="author-block"><sup>1</sup>The Hong Kong University of Science and Technology (GZ)</span>&nbsp;&nbsp;
+        <span class="author-block"><sup>1</sup>HC Lab, HKUST (GZ)</span>&nbsp;&nbsp;
         <span class="author-block"><sup>2</sup>MMLab, The Chinese University of Hong Kong</span>&nbsp;&nbsp;
         <span class="author-block"><sup>3</sup>The University of Hong Kong</span><br>
         <span class="author-block has-text-grey is-size-6"><sup>*</sup>Equal contribution&nbsp;&nbsp;<sup>&dagger;</sup>Corresponding author</span>
@@ -149,23 +148,6 @@
         </span>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- =========================================================
-     Teaser figure / video
-========================================================== -->
-<section class="section teaser-section">
-  <div class="container is-max-desktop">
-    <figure class="teaser-figure">
-      <img src="static/images/mainpipeline.png" alt="MoSA — main pipeline overview">
-      <figcaption class="has-text-centered has-text-grey is-size-6">
-        <strong>Figure 1.</strong> From multi-view videos of a deforming object, MoSA recovers
-        a physics-consistent 3D simulator: a near-isotropic backbone explains the dominant
-        dynamics, and a learned residual stress operator captures the mild anisotropy and
-        heterogeneity that close the remaining real-to-sim gap.
-      </figcaption>
-    </figure>
   </div>
 </section>
 
@@ -206,24 +188,37 @@
 </section>
 
 <!-- =========================================================
-     Highlight video (e.g. 1-2 minute overview)
+     Teaser figure / video
 ========================================================== -->
-<section id="video" class="section section-alt">
+<section class="section teaser-section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 section-title has-text-centered">Video</h2>
-    <div class="publication-video">
-      <video controls preload="metadata" playsinline data-noautoplay>
-        <source src="static/videos/MOSA.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
+    <figure class="teaser-figure">
+      <img src="static/images/mainpipeline.png" alt="MoSA — main pipeline overview">
+      <figcaption class="has-text-centered has-text-grey is-size-6">
+        <strong>Figure 1.</strong> From multi-view videos of a deforming object, MoSA recovers
+        a physics-consistent 3D simulator: a near-isotropic backbone explains the dominant
+        dynamics, and a learned residual stress operator captures the mild anisotropy and
+        heterogeneity that close the remaining real-to-sim gap.
+      </figcaption>
+    </figure>
+
+    <figure class="teaser-figure" style="margin-top:2.5rem; max-width:40%; margin-left:auto; margin-right:auto;">
+      <img src="static/images/stress_redistribution.png" alt="Microplane stress redistribution: each face's stress is replaced by a learned linear combination across coordinate planes">
+      <figcaption class="has-text-centered has-text-grey is-size-6">
+        <strong>Figure 2.</strong> Microplane stress redistribution. Each face's Cauchy stress
+        is replaced by $\sum_{j}(I_{ij} + c_{ij}^{\,rd})\,\sigma_{ji}$ — an identity baseline plus
+        a learned residual coefficient $c^{\,rd}$ — letting the operator rescale and redistribute
+        stress across the three coordinate planes to express directional anisotropy on top of the
+        isotropic prior.
+      </figcaption>
+    </figure>
   </div>
 </section>
 
 <!-- =========================================================
      What does MoSA learn?
 ========================================================== -->
-<section id="learn" class="section">
+<section id="learn" class="section section-alt">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title">What does MoSA learn?</h2>
     <div class="content has-text-justified">
@@ -234,8 +229,16 @@
         <strong>(ii) spatial heterogeneity</strong> of the local material field.
       </p>
 
-      <div style="display:flex; justify-content:center; align-items:flex-start; gap:1.5rem; flex-wrap:wrap; margin:1.5rem 0;">
-        <figure class="image" style="text-align:center; margin:0; flex:0 0 25.2%;">
+      <div style="display:flex; justify-content:center; align-items:flex-start; gap:1rem; flex-wrap:nowrap; margin:1.5rem 0;">
+        <figure class="image" style="text-align:center; margin:0; flex:0 0 22%;">
+          <img src="static/images/learned_redistribution_trend.png"
+               alt="Learned redistribution trend: normalized Young's modulus and Jacobian response share the same directional pattern"
+               style="width:100%; height:auto;">
+          <figcaption class="has-text-grey is-size-7" style="margin-top:0.4rem;">
+            Learned redistribution trend — $E_{\text{norm}}(\theta)$ and $\lVert J\rVert_{\text{norm}}(\theta)$ trace the same directional pattern, so the operator's mechanism agrees with its physical outcome.
+          </figcaption>
+        </figure>
+        <figure class="image" style="text-align:center; margin:0; flex:0 0 22%;">
           <img src="static/images/directional_youngs_modulus.png"
                alt="Directional Young's modulus: GT vs. Neural Fit vs. Ours vs. Isotropic"
                style="width:100%; height:auto;">
@@ -244,24 +247,37 @@
             while the isotropic prior misses it and a black-box neural fit overshoots.
           </figcaption>
         </figure>
-        <figure class="image" style="text-align:center; margin:0; flex:0 0 21.6%;">
+        <figure class="image" style="text-align:center; margin:0; flex:0 0 19%;">
           <img src="static/images/eta_visualization.jpeg"
-               alt="Spatial visualization of the learned heterogeneity field"
+               alt="Spatial visualization of the learned heterogeneity field on Mandarin"
                style="width:100%; height:auto;">
           <figcaption class="has-text-grey is-size-7" style="margin-top:0.4rem;">
-            Learned heterogeneity field $\eta(\mathbf{x})$: redder = stiffer, bluer = softer.
+            $\eta(\mathbf{x})$ on Mandarin — redder = stiffer, bluer = softer.
+          </figcaption>
+        </figure>
+        <figure class="image" style="text-align:center; margin:0; flex:0 0 19%;">
+          <img src="static/images/eta2.jpeg"
+               alt="Spatial visualization of the learned heterogeneity field on Rabbit"
+               style="width:100%; height:auto;">
+          <figcaption class="has-text-grey is-size-7" style="margin-top:0.4rem;">
+            $\eta(\mathbf{x})$ on Rabbit — same color code.
           </figcaption>
         </figure>
       </div>
 
       <p>
         <strong>Directional anisotropy.</strong>
-        We visualize the learned directional Young's modulus $E(\theta)$ on a sample with known
-        anisotropic ground truth. The isotropic prior (dashed) collapses to a perfect circle and
-        misses the directional dependence entirely, while a black-box neural fit overshoots and
-        hallucinates spurious anisotropy along directions the data does not support. MoSA closely
-        tracks the GT, confirming that the residual stress operator captures
-        <em>physically meaningful</em> anisotropy rather than overfitting.
+        We probe the learned operator on a sample with known anisotropic ground truth.
+        <em>(a) Mechanism check.</em>
+        The normalized directional Young's modulus $E_{\text{norm}}(\theta)$ and the normalized
+        Jacobian response $\lVert J\rVert_{\text{norm}}(\theta)$ trace the same anisotropy pattern,
+        showing that the operator's stress-redistribution mechanism is internally consistent with
+        the directional stiffness it produces.
+        <em>(b) Ground-truth check.</em>
+        Against baselines, the isotropic prior (dashed) collapses to a perfect circle and misses
+        the directional dependence entirely, while a black-box neural fit overshoots and
+        hallucinates spurious anisotropy. MoSA closely tracks the GT, confirming that the residual
+        stress operator captures <em>physically meaningful</em> anisotropy rather than overfitting.
       </p>
 
       <p>
@@ -277,7 +293,7 @@
 <!-- =========================================================
      Results: carousel of qualitative results
 ========================================================== -->
-<section id="results" class="section section-alt">
+<section id="results" class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title has-text-centered">Qualitative Results</h2>
     <p class="has-text-centered has-text-grey">
@@ -338,7 +354,7 @@
 <!-- =========================================================
      Comparisons: before/after slider
 ========================================================== -->
-<section id="comparisons" class="section">
+<section id="comparisons" class="section section-alt">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title">Comparisons</h2>
 
@@ -514,7 +530,7 @@
 <!-- =========================================================
      Sim-to-Real Robot Manipulation: downstream impact
 ========================================================== -->
-<section id="robot" class="section section-alt">
+<section id="robot" class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title has-text-centered">Sim-to-Real Robot Manipulation</h2>
     <p class="has-text-centered has-text-grey" style="margin-bottom:2rem;">
@@ -619,7 +635,7 @@
 <!-- =========================================================
      BibTeX
 ========================================================== -->
-<section id="bibtex" class="section">
+<section id="bibtex" class="section section-alt">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title">BibTeX</h2>
     <pre class="bibtex"><code>@inproceedings{wang2026mosa,
